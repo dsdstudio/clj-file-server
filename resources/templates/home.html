@@ -1,14 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
-  <div class="jumbotron">
-    <h1>Welcome to clj-file-server</h1>
-    <p>Time to start building your site!</p>
-    <p><a class="btn btn-primary btn-lg" href="http://luminusweb.net">Learn more &raquo;</a></p>
-  </div>
+<h2>Upload a file</h2>
+<form action="/upload" enctype="multipart/form-data" method="POST">
+  {% csrf-field %}
+  <input id="file" name="file" type="file" />
+  <input type="submit" value="upload" />
+</form>
 
   <div class="row">
-    <div class="span12">
-    {{docs|markdown}}
+      <div class="span12">
+          <ul>
+              {% for f in files %}
+              <li><a href="/files/{{f}}">{{f}}</a></li>
+              {% endfor %}
+          </ul>
     </div>
   </div>
 {% endblock %}
